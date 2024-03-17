@@ -1,0 +1,11 @@
+footer{
+    position: relative;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.4);
+    padding-bottom: 0.8rem;
+    flex-shrink: 0;
+}
+
+footer p span{
+    cursor: pointer;
+}

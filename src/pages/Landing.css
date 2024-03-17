@@ -1,0 +1,71 @@
+@media (max-width: 900px) {
+    .LandingContent img{
+        display: none;
+    }
+}
+
+@keyframes bounceRotate {
+    0% { transform: translateY(2px) rotate(0); }
+    25% { transform: translateY(-16px) rotate(-1deg); }
+    50% { transform: translateY(4px) rotate(0); }
+    75% { transform: translateY(-16px) rotate(2deg); }
+    100% { transform: translateY(2px) rotate(0); }
+}
+
+.Landing{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+.LandingContent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    overflow: hidden;
+    padding-bottom: 4rem;
+}
+
+.LandingContent img{
+    width: 50%;
+    object-fit: contain;
+    margin: 0 auto;
+    animation: bounceRotate 12s infinite;
+    animation-timing-function: ease-in-out;
+
+}
+
+.LandingContent nav{
+    display: flex;
+    line-height: 1.5;
+    text-align: left;
+    color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin: 0 auto;
+    /*padding-left: 1rem;*/
+    /*margin-top: -6rem;*/
+}
+
+nav hr{
+    color: rgba(255, 255, 255, 0.28);
+}
+
+.LandingContent nav ul li{
+    list-style: none;
+    padding: 0;
+}
+
+.LandingContent nav ul li span{
+    display: inline-block;
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+.LandingContent nav ul li span:hover{
+    color: #a19bd9;
+    transform: scale(1.03);
+}

@@ -1,0 +1,78 @@
+.Login {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0 2rem;
+    flex: 1 0 auto;
+}
+
+.Login form{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 3rem 0;
+}
+
+.Login form input{
+    font-family: Futura, sans-serif;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.2rem;
+    margin: 0.5rem 0 1rem;
+    border: none;
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.38);
+    color: white;
+    width: 20rem;
+}
+
+.Login form input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px grey;
+}
+
+.Login .buttonContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.Login .hyperlinkButton{
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.Login .hyperlinkButton:hover{
+    color: rgba(255, 255, 255, 1);
+}
+
+.Login select{
+    font-family: Futura, sans-serif;
+    font-size: 1.1rem;
+    width: 100%;
+    margin: 0.5rem 0 1rem;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 7px;
+    background: rgba(0, 0, 0, 0.38);
+    color: white;
+}
+
+.Login select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px grey;
+}

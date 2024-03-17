@@ -1,0 +1,63 @@
+.HowTo {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.HowToContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0 2rem;
+    flex: 1 0 auto;
+    color: white;
+}
+
+.HowToContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3rem 0 2rem;
+    flex: 1 0 auto;
+    color: white;
+    width: 50%;
+
+}
+
+.HowToContent h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.HowToContent p {
+    text-align: start;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.HowToContent ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+.HowToContent ul li {
+    margin-bottom: 0.5rem;
+}
+
+.HowToContent ul li span {
+    font-weight: 400;
+}
+
+.HowToContent ul li span a {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    text-decoration: none;
+}

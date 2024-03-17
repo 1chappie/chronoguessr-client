@@ -1,0 +1,23 @@
+.validationErrorZone{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem 0;
+    width: 21rem;
+    padding: 0.5rem;
+    border-radius: 7px;
+    background: rgba(255, 40, 40, 0.34);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.validationError{
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
