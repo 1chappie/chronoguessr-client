@@ -1,57 +1,92 @@
 import Header from "../components/Header";
-import React, {useState} from "react";
-import {UserContext} from "../UserContext";
+import React, {useRef, useState} from "react";
 import "./LoginRegister.css";
 import SubscreenButton from "../components/SubscreenButton";
 import ActionButton from "../components/ActionButton";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Footer from "../components/Footer";
+import axios from "../api/axios";
+import {ValidationErrorZone} from "../components/ValidatorError";
+import useAuth from "../hooks/useAuth";
+import {jwtDecode} from 'jwt-decode'
+
+const LOGIN_URL = "/auth/login";
 
 
 export default function Login() {
-    const {setUser} = React.useContext(UserContext); // Get the setUser function from your context
+    const navigate = useNavigate();
 
-    /*const handleLogin = async () => {
-        const user = await performLogin();
-        //placeholder
-        setUser(user);
-    };*/
+    const {auth, setAuth} = useAuth();
+    const identifierRef = useRef();
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [formFields, setFormFields] = useState({
+        identifier: "",
+        password: "",
+    });
+
+    const [errors, setErrors] = useState([]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        console.log(username, password);
-        // try {
-        //     const response = await axios.post("/api/login", {username, password});
-        // } catch (error) {
-        // }
+        try {
+            const response = await axios.post(LOGIN_URL,
+                JSON.stringify({
+                    identifier: formFields.identifier,
+                    password: formFields.password
+                }),
+                {
+                    headers: {'Content-Type': 'application/json'},
+                    withCredentials: true
+                });
+            const accessToken = response?.data?.accessToken;
+            const decoded = jwtDecode(accessToken);
+            setAuth({accessToken, user: decoded});
+            setFormFields({
+                identifier: "",
+                password: ""
+            });
+            setErrors([]);
+            navigate("/");
+        } catch (error) {
+            if(error.response?.data) {
+                setErrors([error.response.data.error]);
+                console.log(error.response.data.error)
+            }
+            else {
+                setErrors(["Server is unavailable, please try again later."]);
+                console.log(error)
+            }
+        }
     };
 
     return (
         <div className={"Login"}>
             <Header/>
             <main className={"LoginContent"}>
-                <SubscreenButton text={"LOG IN"} link={"/"}/>
+                <SubscreenButton label={"LOG IN"} link={"/"}/>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor={"email"}><i>Email or Username</i></label>
                     <input
-                        id={"email"}
                         type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        id={"identifier"}
+                        ref={identifierRef}
+                        value={formFields.identifier}
+                        onChange={(e) =>
+                            setFormFields({...formFields, identifier: e.target.value})}
+                        required
                     />
                     <label htmlFor={"password"}><i>Password</i></label>
                     <input
-                        id={"password"}
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        id={"password"}
+                        value={formFields.password}
+                        onChange={(e) =>
+                            setFormFields({...formFields, password: e.target.value})}
+                        required
                     />
+                    {errors.length > 0 ? <ValidationErrorZone errors={{...errors}}/> : null}
                     <span className={"buttonContainer"}>
-                        <ActionButton text={"LOG IN"} type={"submit"}/>
+                        <ActionButton label={"LOG IN"} type={"submit"}/>
                     </span>
                 </form>
                 <Link to={"/register"} className={"hyperlinkButton"}>Create an account</Link>

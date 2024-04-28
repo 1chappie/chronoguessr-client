@@ -1,28 +1,25 @@
 import Header from "../components/Header";
-import React, {useState} from "react";
-import {UserContext} from "../UserContext";
+import React, {useRef, useState} from "react";
 import "./LoginRegister.css";
 import SubscreenButton from "../components/SubscreenButton";
 import ActionButton from "../components/ActionButton";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {validate} from "../utils/validator.js"
-import ValidationErrorZone from "../components/ValidatorError";
+import {ValidationErrorZone} from "../components/ValidatorError";
 import Footer from "../components/Footer";
+import axios from "../api/axios"
+import {jwtDecode} from "jwt-decode";
+import useAuth from "../hooks/useAuth";
+
+const REGISTER_URL = "/auth/register";
 
 
 export default function Register() {
-    // const {setUser} = React.useContext(UserContext);
-
-    /*const handleLogin = async () => {
-        const user = await performLogin();
-
-        setUser(user);
-    };*/
-
-
-    {/*TODO post AND ADD POST INPUT VALIDATION IE username email*/
-        
-    }
+    const usernameRef = useRef();
+    const emailRef = useRef();
+    const regionRef = useRef();
+    const {auth, setAuth} = useAuth();
+    const navigate = useNavigate();
 
     const [formFields, setFormFields] = useState({
         username: "",
@@ -52,13 +49,40 @@ export default function Register() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const errors = localValidation();
-        setErrors(errors);
         if (errors.length > 0) {
-            console.log("invalid");
-            console.log(errors);
+            setErrors(errors);
         } else {
-            console.log("valid");
-            console.log(errors);
+            try {
+                const response = await axios.post(REGISTER_URL,
+                    JSON.stringify({
+                        username: formFields.username,
+                        email: formFields.email,
+                        region: formFields.region,
+                        password: formFields.password
+                    }),
+                    {
+                        headers: {'Content-Type': 'application/json'},
+                        withCredentials: true
+                    });
+                const accessToken = response?.data?.accessToken;
+                const decoded = jwtDecode(accessToken);
+                setAuth({accessToken, user: decoded});
+
+                setFormFields({
+                    username: "",
+                    password: "",
+                    confirmPassword: "",
+                    email: "",
+                    region: ""
+                });
+                setErrors([]);
+                navigate("/");
+            } catch (error) {
+                if(error.response?.data)
+                    setErrors([error.response.data.error]);
+                else
+                    setErrors(["Server is unavailable, please try again later."]);
+            }
         }
     };
 
@@ -66,30 +90,40 @@ export default function Register() {
         <div className={"Login"}>
             <Header/>
             <main className={"LoginContent"}>
-                <SubscreenButton text={"SIGN UP"} link={"/login"}/>
+                <SubscreenButton label={"SIGN UP"} link={"/login"}/>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor={"email"}><i>Email</i></label>
                     <input
-                        id={"email"}
                         type="text"
+                        id={"email"}
+                        ref={emailRef}
+                        autoComplete="off"
                         value={formFields.email}
-                        onChange={(e) => {
-                            setFormFields({...formFields, email: e.target.value})
-                        }}
+                        onChange={(e) =>
+                            setFormFields({...formFields, email: e.target.value})}
+                        required
                     />
                     <label htmlFor={"username"}><i>Username</i></label>
                     <input
-                        id={"username"}
                         type="text"
+                        id={"username"}
+                        ref={usernameRef}
+                        autoComplete="off"
                         value={formFields.username}
-                        onChange={(e) => {
-                            setFormFields({...formFields, username: e.target.value})
-                        }}
+                        onChange={(e) =>
+                            setFormFields({...formFields, username: e.target.value})}
+                        required
                     />
                     <label htmlFor={"region"}><i>Region</i></label>
-                    <select id={"region"} value={formFields.region} onChange={(e) => {
-                        setFormFields({...formFields, region: e.target.value})
-                    }}>
+                    <select
+                        id={"region"}
+                        ref={regionRef}
+                        autoComplete="off"
+                        value={formFields.region}
+                        onChange={(e) =>
+                            setFormFields({...formFields, region: e.target.value})}
+                        required
+                    >
                         <option value="" disabled></option>
                         <option value={"NA"}>North America</option>
                         <option value={"SA"}>South America</option>
@@ -100,27 +134,27 @@ export default function Register() {
                     </select>
                     <label htmlFor={"password"}><i>Password</i></label>
                     <input
-                        id={"password"}
                         type="password"
+                        id={"password"}
                         value={formFields.password}
-                        onChange={(e) => {
-                            setFormFields({...formFields, password: e.target.value})
-                        }}
+                        onChange={(e) =>
+                            setFormFields({...formFields, password: e.target.value})}
+                        required
                     />
                     <label htmlFor={"confirmPassword"}><i>Confirm Password</i></label>
                     <input
-                        id={"confirmPassword"}
                         type="password"
+                        id={"confirmPassword"}
                         value={formFields.confirmPassword}
-                        onChange={(e) => {
-                            setFormFields({...formFields, confirmPassword: e.target.value})
-                        }}
+                        onChange={(e) =>
+                            setFormFields({...formFields, confirmPassword: e.target.value})}
+                        required
                     />
 
-                    {errors.length>0 ? <ValidationErrorZone errors={{...errors}}/> : null}
+                    {errors.length > 0 ? <ValidationErrorZone errors={{...errors}}/> : null}
 
                     <span className={"buttonContainer"}>
-                        <ActionButton text={"SIGN UP"} type={"submit"}/>
+                        <ActionButton label={"SIGN UP"} type={"submit"}/>
                     </span>
 
                 </form>

@@ -1,0 +1,29 @@
+.Unauthorized {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.UnauthorizedContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0 2rem;
+    flex: 1 0 auto;
+    color: white;
+}
+
+.HowToContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3rem 0 2rem;
+    flex: 1 0 auto;
+    color: white;
+    width: 50%;
+
+}
+

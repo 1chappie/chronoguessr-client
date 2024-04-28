@@ -2,11 +2,13 @@ import {ReactComponent as Logo} from '../assets/logo_vector.svg';
 import "./Header.css";
 import ActionButton from "./ActionButton.jsx";
 import {Link, useLocation} from "react-router-dom";
-import {UserContext} from "../UserContext";
+import {useContext} from "react";
+import {AuthContext} from "../context/AuthContext";
+
 import React from "react";
 
 export default function Header() {
-    const { user } = React.useContext(UserContext);
+    const { auth } = useContext(AuthContext);
     const location = useLocation();
     const path = location.pathname;
 
@@ -14,10 +16,10 @@ export default function Header() {
     let button;
     if (['/login', '/register', '/profile'].includes(path)) {
         button = null;
-    } else if (user) {
-        button = <ActionButton text={"PROFILE"} location={"/profile"}/>;
+    } else if (auth) {
+        button = <ActionButton label={auth.user.username} link={"/profile"}/>;
     } else {
-        button = <ActionButton text={"LOG IN"} location={"/login"}/>;
+        button = <ActionButton label={"LOG IN"} link={"/login"}/>;
     }
 
     return (
