@@ -1,0 +1,70 @@
+.sessionContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100vh;
+    width: 100vw;
+}
+
+.sessionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    padding-top: 4rem;
+    z-index: 10;
+}
+
+.sessionHeaderButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 50px; /* adjust as needed */
+}
+
+.iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.responseBox {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+
+.roundCounter {
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.38);
+    padding: 0.6rem 0.9rem;
+    width: fit-content;
+    transform: skew(-10deg);
+    border-radius: 7px;
+    font-size: 0.9rem;
+    margin-left: 1rem;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9998; /* one less than the popup */
+    background: rgba(0, 0, 0, 0.5); /* semi-transparent */
+}

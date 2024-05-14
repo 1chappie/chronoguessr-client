@@ -61,3 +61,15 @@
     font-weight: 600;
     text-decoration: none;
 }
+
+.reqsTable{
+    border: 1px solid white;
+}
+.reqsTable th, .reqsTable td {
+    border: 1px solid white;
+    padding: 0.5rem;
+    text-align: center;
+}
+.reqsList li {
+    list-style-type: decimal;
+}

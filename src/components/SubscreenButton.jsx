@@ -1,16 +1,20 @@
 import './Button.css';
 import {useNavigate} from 'react-router-dom';
 
-export default function SubscreenButton({label, link = null}) {
+export default function SubscreenButton({label, link = null, onclick = null}) {
     const navigate = useNavigate();
 
     return (
-        link ?
-            <div className={"SubscreenButton"} onClick={() => navigate(link)}>
-                &lt; <i>{label}</i>
-            </div> :
-            <div className={"SubscreenButton"} onClick={() => navigate(-1)}>
-                &lt; <i>{label}</i>
-            </div>
+        <div className={"SubscreenButton"} onClick={() => {
+            if (link) {
+                navigate(link);
+            } else if (onclick) {
+                onclick();
+            } else {
+                navigate(-1);
+            }
+        }}>
+            &lt; <i>{label}</i>
+        </div>
     );
 }

@@ -1,0 +1,13 @@
+.Popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background: rgb(42, 42, 42); /* semi-transparent background */
+    padding: 2rem;
+    border-radius: 1rem;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+}

@@ -10,6 +10,8 @@ import Layout from "./components/overhead/Layout";
 import Profile from "./pages/Profile";
 import PersistLogin from "./components/overhead/PersistLogin";
 import Unauthorized from "./pages/Unauthorized";
+import ClassicSession from "./pages/ClassicSession";
+import WIP from "./pages/WIP";
 
 /*TODO ADD LOCAL FONT FUTURA*/
 
@@ -32,7 +34,8 @@ function App() {
                         {/*protected*/}
                         <Route element={<RequireAuth elevation={"user"}/>}>
                             <Route path="/profile" element={<Profile/>}/>
-                            {/*<Route path="/game" element={<Game/>}/>*/}
+                            <Route path="/classic-session" element={<ClassicSession/>}/>
+                            <Route path={"/wip"} element={<WIP/>}/>
                         </Route>
                         <Route element={<RequireAuth elevation={"admin"}/>}>
                         </Route>
